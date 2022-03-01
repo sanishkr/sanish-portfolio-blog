@@ -1,7 +1,9 @@
 const withPWA = require('next-pwa')
+const { withGlobalCss } = require('next-global-css')
 
-module.exports = withPWA({
-  pwa: {
+const withConfig = withGlobalCss()
+module.exports = withConfig(withPWA({
+    pwa: {
     dest: 'public',
     runtimeCaching: [
       // {
@@ -102,4 +104,4 @@ module.exports = withPWA({
       },
     ],
   }
-})
+}))
