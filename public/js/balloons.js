@@ -1,4 +1,4 @@
-const bdayBallons = (function () {
+let bdayBallons = (function () {
 	const density = 7; // concurrent balloon count
 	const balloons = [];
 	const colors = ['yellow', 'green', 'blue', 'red', 'orange', 'purple'];
