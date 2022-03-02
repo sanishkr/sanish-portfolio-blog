@@ -1,10 +1,10 @@
-export const bdayBallons = function () {
-	const density = count; // concurrent balloon count
+const bdayBallons = (function () {
+	const density = 7; // concurrent balloon count
 	const balloons = [];
 	const colors = ['yellow', 'green', 'blue', 'red', 'orange', 'purple'];
 	const msgText = 'Happy Birthday.'
 	let audio = new Audio('https://soundbible.com/mp3/Balloon%20Popping-SoundBible.com-1247261379.mp3');
-	audio.volume = popVolumeLevel;
+	audio.volume = 0.5;
 
   const stringElement = document.createElement('div');
 	stringElement.classList.add('string');
@@ -133,4 +133,4 @@ export const bdayBallons = function () {
 
       balloonAnimation.onfinish = () => { releaseBalloon(balloon) }
   }
-};
+})();
