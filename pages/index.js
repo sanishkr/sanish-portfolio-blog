@@ -31,7 +31,7 @@ export default function Index({ allPosts, preview }) {
     const {0: TDD, 1: TMM} = new Date().toLocaleDateString().split('/')
     const {0: DD, 1: MM} = PORTFOLIO.PERSONAL.DOB.split('-');
     alert(`TDD:${TDD}, TMM: ${TMM}, DD: ${DD}, MM:${MM}`);
-    setShowRFB(TDD === DD && TMM === MM);
+    setShowRFB(parseInt(TDD) === parseInt(DD) && parseInt(TMM) === parseInt(MM));
   }
 
   return (
