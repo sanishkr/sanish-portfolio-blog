@@ -1,14 +1,15 @@
 import Container from '../components/container'
 import Portfolio from '../components/portfolio'
 import MoreStories from '../components/more-stories'
+import Projects from '../components/projects'
 import HeroPost from '../components/hero-post'
 import Intro from '../components/intro'
 import Layout from '../components/layout'
-import { getAllPostsForHome } from '../lib/api'
+import { getAllPostsForHome, getAllProjectsForHome } from '../lib/api'
 import Head from 'next/head'
 import { CMS_NAME, PORTFOLIO } from '../lib/constants'
 
-export default function Index({ allPosts, preview }) {
+export default function Index({ allPosts, allProjects, preview }) {
   const heroPost = allPosts[0]
   const morePosts = allPosts.slice(1)
   return (
@@ -19,7 +20,7 @@ export default function Index({ allPosts, preview }) {
         </Head>
         <Portfolio/>
         <Container>
-          <Intro />
+          {/* <Intro />
           {heroPost ? (
             <HeroPost
               title={heroPost.title}
@@ -36,7 +37,15 @@ export default function Index({ allPosts, preview }) {
             {PORTFOLIO.BLOGS.EMPTY_MSG}
           </span>
           }
-          {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+          {morePosts.length > 0 && <MoreStories posts={morePosts} />} */}
+          {allProjects.length > 0 ?
+            <Projects projects={allProjects} /> : 
+            <span 
+              className='block text-center font-serif text-sm text-gray-700'
+            >
+              {PORTFOLIO.PROJECTS.EMPTY_MSG}
+            </span>
+          }
         </Container>
       </Layout>
     </>
@@ -45,8 +54,9 @@ export default function Index({ allPosts, preview }) {
 
 export async function getStaticProps({ preview = false }) {
   const allPosts = await getAllPostsForHome(preview)
+  const allProjects = await getAllProjectsForHome(preview)
   return {
-    props: { allPosts, preview },
+    props: { allPosts, allProjects, preview },
     revalidate: 1
   }
 }
