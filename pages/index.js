@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
+
 import Container from '../components/container'
 import Portfolio from '../components/portfolio'
 import MoreStories from '../components/more-stories'
@@ -9,9 +12,33 @@ import { getAllPostsForHome, getAllProjectsForHome } from '../lib/api'
 import Head from 'next/head'
 import { CMS_NAME, PORTFOLIO } from '../lib/constants'
 
+const dynamicComponents = {
+  ReactFloatingBalloons: dynamic(
+    () =>
+      import("react-floating-balloons").then(
+        (mod) => mod.ReactFloatingBalloons
+      ),
+    { ssr: false }
+  )
+};
+
 export default function Index({ allPosts, allProjects, preview }) {
   const heroPost = allPosts[0]
   const morePosts = allPosts.slice(1)
+  const [showRFB, setShowRFB] = useState(false);
+
+  const RFB = dynamicComponents.ReactFloatingBalloons;
+  useEffect(() => {
+    CheckForRFB();
+  }, []);
+  const CheckForRFB = () => {
+    const TDD = new Date().getDate();
+    const TMM = new Date().getMonth() + 1;
+    const {0: DD, 1: MM} = PORTFOLIO.PERSONAL.DOB.split('-');
+    // alert(`TDD:${TDD}, TMM: ${TMM}, DD: ${DD}, MM:${MM}`);
+    setShowRFB(parseInt(TDD) === parseInt(DD) && parseInt(TMM) === parseInt(MM));
+  }
+
   return (
     <>
       <Layout preview={preview}>
@@ -47,6 +74,7 @@ export default function Index({ allPosts, allProjects, preview }) {
             </span>
           }
         </Container>
+        {showRFB ? <RFB/> : null}
       </Layout>
     </>
   )
