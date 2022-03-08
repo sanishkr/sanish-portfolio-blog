@@ -54,7 +54,7 @@ export default function Portfolio({coverImage, fburl, giturl, igurl, lnurl, name
           <p className="mt-4"></p>
           <ul className="m-0 p-0 list-none rotate-0">
             {
-              PORTFOLIO.SHOW_SM_LINKS ? SM_LINKS.map(sm => <li key={sm.label} className='m-0 p-0 list-none inline-block'>
+              PORTFOLIO.SHOW_SM_LINKS ? SM_LINKS.map(sm => sm.url ? <li key={sm.label} className='m-0 p-0 list-none inline-block'>
               <a
                 className="text-white inline-block px-3"
                 href={sm.url}
@@ -64,7 +64,7 @@ export default function Portfolio({coverImage, fburl, giturl, igurl, lnurl, name
               >
                 <FontAwesomeIcon icon={sm.icon_value} className='text-3xl' />
               </a>
-            </li>)
+            </li> : null)
             : null
             }
           </ul>
