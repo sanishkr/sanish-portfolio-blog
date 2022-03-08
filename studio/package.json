@@ -1,10 +1,10 @@
 {
-  "name": "mysanityproject",
+  "name": "sanish-portfolio-blog-studio",
   "private": true,
   "version": "1.0.0",
-  "description": "",
+  "description": "Sanish's blog, portfolio, projects, profile - studio",
   "main": "package.json",
-  "author": "Knut Melvær <knut@sanity.io>",
+  "author": "Sanish Kumar <sanishkr@gmail.com>",
   "license": "UNLICENSED",
   "keywords": [
     "sanity"

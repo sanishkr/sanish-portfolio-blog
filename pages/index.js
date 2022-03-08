@@ -13,9 +13,12 @@ import { CMS_NAME, PORTFOLIO } from '../lib/constants'
 
 const dynamicComponents = {
   ReactFloatingBalloons: dynamic(
-    () => import('../components/balloons'),
+    () =>
+      import("react-floating-balloons").then(
+        (mod) => mod.ReactFloatingBalloons
+      ),
     { ssr: false }
-  ),
+  )
 };
 
 export default function Index({ allPosts, preview }) {
@@ -31,7 +34,7 @@ export default function Index({ allPosts, preview }) {
     const TDD = new Date().getDate();
     const TMM = new Date().getMonth() + 1;
     const {0: DD, 1: MM} = PORTFOLIO.PERSONAL.DOB.split('-');
-    alert(`TDD:${TDD}, TMM: ${TMM}, DD: ${DD}, MM:${MM}`);
+    // alert(`TDD:${TDD}, TMM: ${TMM}, DD: ${DD}, MM:${MM}`);
     setShowRFB(parseInt(TDD) === parseInt(DD) && parseInt(TMM) === parseInt(MM));
   }
 
