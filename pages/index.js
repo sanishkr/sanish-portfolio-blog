@@ -8,7 +8,7 @@ import Projects from '../components/projects'
 import HeroPost from '../components/hero-post'
 import Intro from '../components/intro'
 import Layout from '../components/layout'
-import { getAllPostsForHome, getAllProjectsForHome } from '../lib/api'
+import { getAllPortfolioForHome, getAllPostsForHome, getAllProjectsForHome } from '../lib/api'
 import Head from 'next/head'
 import { CMS_NAME, PORTFOLIO } from '../lib/constants'
 
@@ -22,7 +22,7 @@ const dynamicComponents = {
   )
 };
 
-export default function Index({ allPosts, allProjects, preview }) {
+export default function Index({ allPosts, allProjects, portfolioData, preview }) {
   const heroPost = allPosts[0]
   const morePosts = allPosts.slice(1)
   const [showRFB, setShowRFB] = useState(false);
@@ -34,7 +34,7 @@ export default function Index({ allPosts, allProjects, preview }) {
   const CheckForRFB = () => {
     const TDD = new Date().getDate();
     const TMM = new Date().getMonth() + 1;
-    const {0: DD, 1: MM} = PORTFOLIO.PERSONAL.DOB.split('-');
+    const {2: DD, 1: MM} = portfolioData.dob.split('-');
     // alert(`TDD:${TDD}, TMM: ${TMM}, DD: ${DD}, MM:${MM}`);
     setShowRFB(parseInt(TDD) === parseInt(DD) && parseInt(TMM) === parseInt(MM));
   }
@@ -43,9 +43,9 @@ export default function Index({ allPosts, allProjects, preview }) {
     <>
       <Layout preview={preview}>
         <Head>
-          <title>{PORTFOLIO.PERSONAL.NAME.FNAME} {PORTFOLIO.PERSONAL.NAME.LNAME} | Blog | Profile | Portfolio</title>
+          <title>{portfolioData.name} | Blog | Profile | Portfolio</title>
         </Head>
-        <Portfolio/>
+        <Portfolio {...portfolioData}/>
         <Container>
           {/* <Intro />
           {heroPost ? (
@@ -83,8 +83,9 @@ export default function Index({ allPosts, allProjects, preview }) {
 export async function getStaticProps({ preview = false }) {
   const allPosts = await getAllPostsForHome(preview)
   const allProjects = await getAllProjectsForHome(preview)
+  const portfolioData = await getAllPortfolioForHome(preview)
   return {
-    props: { allPosts, allProjects, preview },
+    props: { allPosts, allProjects, portfolioData, preview },
     revalidate: 1
   }
 }
